@@ -28,7 +28,17 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/primary_text_dark_nodisable"
             android:background="#ff0099cc"
+
             android:text="Tomar Foto" />
+        <Button
+            android:layout_marginTop="10dp"
+            android:id="@+id/btn_enviar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/primary_text_dark_nodisable"
+            android:background="#ff0099cc"
+
+            android:text="Procesar Foto" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

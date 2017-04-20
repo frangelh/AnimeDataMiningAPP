@@ -1,5 +1,7 @@
 package com.animedataminingapp;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -103,7 +105,7 @@ public class HttpHelper {
             }
         }
     }
-    public static String POST_JSON(String targetURL, String json)
+    public static String POST_JSON(String targetURL, JSONObject json)
     {
         URL url;
         HttpURLConnection connection = null;
@@ -116,7 +118,7 @@ public class HttpHelper {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Content-Length", "" +
-                    Integer.toString(json.getBytes().length));
+                    Integer.toString(json.toString().getBytes().length));
             connection.setRequestProperty("Content-Language", "en-US");
             connection.setUseCaches (false);
             connection.setDoInput(true);
@@ -125,7 +127,7 @@ public class HttpHelper {
 
             DataOutputStream wr = new DataOutputStream(
                     connection.getOutputStream ());
-            wr.writeBytes (json);
+            wr.writeBytes (json.toString());
             wr.flush ();
             wr.close ();
 

@@ -15,31 +15,31 @@ import org.json.JSONObject;
 
 public class EnviarImagen extends AsyncTask<String,Void,String> {
     Context ctx;
-    String secureToken;
     ProgressDialog progressDialog;
-    String imagen;
+    Imagen imagen;
     private int mProgressStatus = 0;
     private Handler mHandler = new Handler();
 
-    public EnviarImagen(Context ctx, String secureToken, ProgressDialog progressDialog, String imagen) {
+    public EnviarImagen(Context ctx, ProgressDialog progressDialog, Imagen imagen) {
         this.ctx = ctx;
-        this.secureToken = secureToken;
         this.progressDialog = progressDialog;
         this.imagen = imagen;
     }
 
     @Override
     protected String doInBackground(String... urls) {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("imagen",imagen);
-        } catch (JSONException e) {
+        //JSONObject json = new JSONObject();
+        //ObjectMapper mapper = new ObjectMapper();
+       /* try {
+            //String valor = mapper.writeValueAsString(imagen);
+            //json.put("imagen",valor);
+        } catch (JSONException | JsonProcessingException e) {
             e.printStackTrace();
-        }
-
-
-        System.out.println("JSON ENVIADO:"+json.toString());
-        return HttpHelper.POST_JSON(urls[0], json.toString());
+        }*/
+        System.out.println("SERVIDOR: "+urls[0]);
+        //System.out.println("JSON ENVIADO:"+json.toString());
+        System.out.println("Imagen Enviada: "+imagen.data);
+        return HttpHelper.POST(urls[0], "imagen="+imagen.data);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class EnviarImagen extends AsyncTask<String,Void,String> {
                     boolean esError = json.getBoolean("error");
 
                     if(esError){
-                        mensaje = json.getJSONObject("errorTrama").getString("mensaje");
+                        mensaje = json.getString("mensaje");
                     }else {
                      mensaje = " Correctamente...";
                     }
@@ -67,7 +67,7 @@ public class EnviarImagen extends AsyncTask<String,Void,String> {
                     }
                 });
 
-            Toast.makeText(ctx, "Terminando Inspeccion:"+mensaje, Toast.LENGTH_LONG).show();
+            Toast.makeText(ctx, "Terminando Proceso:"+mensaje, Toast.LENGTH_LONG).show();
             progressDialog.dismiss();
 
 
